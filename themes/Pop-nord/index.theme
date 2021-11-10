@@ -1,0 +1,9 @@
+[X-GNOME-Metatheme]
+Name=Pop-nord
+Type=X-GNOME-Metatheme
+Comment=The Pop-nord GTK Theme
+Encoding=UTF-8
+GtkTheme=Pop-nord
+IconTheme=Pop-nord
+CursorTheme=Pop-nord
+CursorSize=24
