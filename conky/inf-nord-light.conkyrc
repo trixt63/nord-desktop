@@ -66,14 +66,8 @@ default_shade_color = 'black',
 draw_outline = false,-- amplifies text if yes
 default_outline_color = 'black',
 
---default_color 656667 # Waldorf original colour
---default_color 7a7a7a # Flame  & Bunsen Grey
---default_color 929292 # Labs Grey
---default_color = '#7cfc00',-- lime
-
-default_color = '#8ec07c',-- gruv green
---color0 = '#ffffff',-- purewhite
-color0 = '#FBF1C7',--gruv white
+default_color = '#434c5e',--hours, day, and names
+color0 = '#e5e9f0',-- minutes and values
 
 color1 = '#777777',-- Gray
 color2 = '#D8BFD8',-- Thistle
