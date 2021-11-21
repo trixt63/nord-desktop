@@ -68,16 +68,7 @@ default_outline_color = 'black',
 
 default_color = '#434c5e',--hours, day, and names
 color0 = '#e5e9f0',-- minutes and values
-
-color1 = '#777777',-- Gray
-color2 = '#D8BFD8',-- Thistle
-color3 = '#9ACD32',-- YellowGreen
-color4 = '#FFA07A',-- LightSalmon
-color5 = '#FFDEAD',-- NavajoWhite
-color6 = '#00BFFF',-- DeepSkycyan
-color7 = '#5F9EA0',-- Cadetcyan
-color8 = '#BDB76B',-- DarkKhaki
-color9 = '#CD5C5C',-- IndianRed
+color1 = '#4c566a',-- the "I" between values 
 --######################  End Colour Settings  ###
 --##  Borders Section  ###########################
 draw_borders = false,
@@ -144,11 +135,11 @@ ${font Roboto:Light:size=24}${voffset 12}$alignr${color0}${execi 300 LANG=${temp
 ${color0} ${execi 300 LANG=${template9} LC_TIME=${template9} date +"%B"}${font}${voffset 2}
 ${hr}${color}${voffset 4}
 ${font Roboto:pixelsize=13}${alignr} USER: ${color0}${execi 5000 whoami}${color} ${color1}I${color} MACHINE: ${color0}$nodename${color} ${color1}I${color} UPTIME: ${color0}$uptime${color}
-${font Roboto:pixelsize=13}${alignr} DISTRIBUTION: ${color0}${execi 6000 awk -F'=' '/DESCRIPTION/ {print $2}' /etc/lsb-release |sed 's/"//g'}${color} ${color1}I${color} VERSION: ${color0}${execi 6000 awk -F'=' '/DISTRIB_RELEASE=/ {printf $2" "} /CODENAME/ {print $2}' /etc/lsb-release}${color}
+${font Roboto:pixelsize=13}${alignr} DISTRIBUTION: ${color0}${execi 6000 cat /etc/os-release|grep 'PRETTY_NAME'| cut -c14-29}${color} ${color1}I${color} VERSION: ${color0}${execi 6000 awk -F'=' '/VERSION_ID=/ {printf substr($2,2,2)" "} /CODENAME/ {print "("$2")"}' /etc/os-release}${color}
 ${font Roboto:pixelsize=13}${alignr} ARCHITECTURE: ${color0}${machine}${color} ${color1}I${color} KERNEL: ${color0}${kernel}${color}
 ${font Roboto:pixelsize=13}${alignr} ROOT: ${color0}${fs_used /}${color} / ${color0}${fs_size /}${color} ${color1}I${color} HOME: ${color0}${fs_used /home}${color} / ${color0}${fs_size /home}${color}
-${font Roboto:pixelsize=13}${alignr} CPU: ${color0}${cpu cpu0}%${color} ${color1}I${color} RAM: ${color0}$mem / $memmax${color} HD: ${color0}${fs_used_perc}%${color}
-${font Roboto:pixelsize=13}${alignr} SWAP: ${color0}${swap} / ${swapmax}${color} ${color1}I${color} SYS TEMP: ${color0}${acpitemp}°C${color}
+${font Roboto:pixelsize=13}${alignr} RAM: ${color0}$mem / $memmax ${color1}I${color} SWAP: ${color0}${swap}${color} / ${color0}${swapmax}${color}
+${font Roboto:pixelsize=13}${alignr} CPU: ${color0}${cpu cpu0}%${color} ${color1}I${color} SYS TEMP: ${color0}${acpitemp}°C ${color1}I${color} HDD: ${color0}${fs_used_perc}%${color} 
 ${font Roboto:pixelsize=13}${alignr} YOU CAN INSTALL ${color0}${execpi 12000 checkupdates | wc -l} UPDATE(S)${color}
 ]]
 
