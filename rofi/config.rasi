@@ -1,0 +1,7 @@
+/** Basic config file **/
+
+configuration {
+  show-icons:         true;
+  icon-theme:         "Papirus";
+}
+@import "/home/xuantung/.config/rofi/launchers/text/style_2.rasi"
