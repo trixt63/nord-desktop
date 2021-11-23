@@ -31,10 +31,10 @@ set $aurorapurple #b48ead
 
 # colors
 set $bg-color            #e5e9f0
-set $focused-bg-color 	 #4c566a
-set $inactive-bg-color   #2e3440
+set $focused-bg-color 	 #b48ead
+set $inactive-bg-color   #eceff4
 set $text-color          #eceff4
-set $inactive-text-color #7b808a
+set $inactive-text-color #9da3b0
 set $urgent-bg-color     #bf616a
 set $indicator           #8fbcbb
 
@@ -84,11 +84,9 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id exec rofi -show drun -font "Roboto Condensed 15"
 
 # rofi theme
-#bindsym $mod+m exec --no-startup-id menu_mpd
-#bindsym $mod+n exec --no-startup-id menu_network
+bindsym $mod+m exec --no-startup-id ~/.config/rofi/bin/menu_mpd
+bindsym $mod+n exec --no-startup-id ~/.config/rofi/bin/menu_network
 bindsym $mod+p exec --no-startup-id ~/.config/rofi/bin/menu_powermenu
-
-
 
 # change focus
 bindsym $mod+j focus left
@@ -142,16 +140,16 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: Hack "
-set $ws2 "2: Files  "
-set $ws3 "3: Display "
-set $ws4 "4: Display "
-set $ws5 "5: Meets "
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10: System "
+set $ws1 "1:ハック "
+set $ws2 "2:ファイル "
+set $ws3 "3:画面二 "
+set $ws4 "4:仮想環境 "
+set $ws5 "5:会議する "
+set $ws6 "6:オフィス "
+set $ws7 "7:ブラウザ "
+set $ws8 "8: 音楽 "
+set $ws9 "9: 設定 "
+set $ws10 "10:システム "
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -180,8 +178,14 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # assign applications to workspace
 assign [class="Codium"] $ws1
 assign [class="Thunar"] $ws2
-#assign [class="Xfce4-terminal"] $ws2
 assign [class="Microsoft Teams - Preview"] $ws5
+assign [class="libreoffice"] $ws6
+assign [class="Chromium"] $ws7
+#assign [class="Tor Browser"] $ws7
+assign [class="Quodlibet"] $ws8
+assign [class="Gnome-pomodoro"] $ws8
+assign [class="Xfce4-power-manager-settings"] $ws9
+assign [class="Lxappearance"] $ws9
 assign [class="Xfce4-taskmanager"] $ws10
 assign [class="Psensor"] $ws10
 
@@ -250,6 +254,7 @@ bar {
 bindsym Control+Mod1+w exec firefox
 bindsym Control+Mod1+f exec thunar
 bindsym Control+Mod1+m exec xfce4-taskmanager
+bindsym Control+Mod1+s exec xfce4-terminal -x sh -c "speedtest; bash"
 
 # Screenshots
 bindsym Print exec --no-startup-id xfce4-screenshooter -f 
@@ -260,9 +265,10 @@ bindsym Shift+Print exec --no-startup-id xfce4-screenshooter -r
 exec_always feh --bg-scale /home/xuantung/.local/share/background/nord/Murky\ peaks.jpg
 
 # startup
-exec_always --no-startup-id ibus-daemon #input methods
+exec --no-startup-id ibus-daemon #input methods
+exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent # for redshift to run
 exec --no-startup-id redshift-gtk  #limit bluelight, prevent eyestrain
-exec_always --no-startup-id xfce4-power-manager # energy consumption
+exec --no-startup-id xfce4-power-manager # energy consumption
 exec blueman-applet #bluetooth
 exec thunderbird #mail client
 exec picom #compositor
