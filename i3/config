@@ -11,36 +11,9 @@
 
 set $mod Mod4
 
-#nord color pallete
-set $polar1 	  #2e3440
-set $polar2 	  #3b4252
-set $polar3 	  #434c5e
-set $polar4  	  #4c566a
-set $snow1  	  #d8dee9
-set $snow2        #e5e9f0
-set $snow3  	  #eceff4
-set $frost1 	  #8fbcbb
-set $frost2 	  #88c0d0
-set $frost3 	  #81a1c1
-set $frost4       #5e81ac
-set $aurorared    #bf616a
-set $auroraorange #d08770
-set $aurorayellow #ebcb8b
-set $auroragreen  #a3be8c
-set $aurorapurple #b48ead
-
-# colors
-set $bg-color            #e5e9f0
-set $focused-bg-color 	 #b48ead
-set $inactive-bg-color   #eceff4
-set $text-color          #eceff4
-set $inactive-text-color #9da3b0
-set $urgent-bg-color     #bf616a
-set $indicator           #8fbcbb
-
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:lato 12 
+font pango:Lato 12 
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -51,7 +24,8 @@ font pango:lato 12
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+#exec_always --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+#exec_always --no-startup-id xss-lock --transfer-sleep-lock -- dm-tool switch-to-greeter 
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -79,6 +53,11 @@ bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
+
+# lock screen
+bindsym $mod+Shift+x exec i3lock -n -c d8dee9
+#bindsym $mod+Shift+x exec dm-tool lock 
+ 
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id exec rofi -show drun -font "Roboto Condensed 15"
@@ -140,16 +119,16 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1:ハック "
-set $ws2 "2:ファイル "
-set $ws3 "3:画面二 "
-set $ws4 "4:仮想環境 "
-set $ws5 "5:会議する "
-set $ws6 "6:オフィス "
-set $ws7 "7:ブラウザ "
-set $ws8 "8: 音楽 "
-set $ws9 "9: 設定 "
-set $ws10 "10:システム "
+set $ws1 "1:ブラウザ  "
+set $ws2 "2:ハック  "
+set $ws3 "3:ファイル  "
+set $ws4 "4: 連絡   "
+set $ws5 "5:オフィス  "
+set $ws6 "6:仮想環境  "
+set $ws7 "7:画面二  "
+set $ws8 "8: 音楽 ♫ "
+set $ws9 "9: 設定  "
+set $ws10 "10:システム  "
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -175,17 +154,30 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
+# move focused workspace between monitors
+bindsym $mod+Shift+greater move workspace to output right
+bindsym $mod+Shift+less move workspace to output left
+
+
 # assign applications to workspace
-assign [class="Codium"] $ws1
-assign [class="Thunar"] $ws2
-assign [class="Microsoft Teams - Preview"] $ws5
-assign [class="libreoffice"] $ws6
-assign [class="Chromium"] $ws7
-#assign [class="Tor Browser"] $ws7
+assign [class="Firefox-esr"] $ws1
+#assign [class="Chromium"] $ws1
+#assign [class="Tor Browser"] $ws1
+assign [class="Codium"] $ws2
+assign [class="jetbrains-studio"] $ws2
+assign [class="Thunar"] $ws3
+assign [class="Baobab"] $ws3
+assign [class="Microsoft Teams - Preview"] $ws4
+assign [class="telegram-desktop"] $ws4
+assign [class="libreoffice"] $ws5
+assign [class="calibre"] $ws5
+assign [class="TeamViewer"] $ws5
+assign [class="thunderbird"] $ws5
 assign [class="Quodlibet"] $ws8
 assign [class="Gnome-pomodoro"] $ws8
 assign [class="Xfce4-power-manager-settings"] $ws9
 assign [class="Lxappearance"] $ws9
+assign [class="Synaptic"] $ws9
 assign [class="Xfce4-taskmanager"] $ws10
 assign [class="Psensor"] $ws10
 
@@ -200,7 +192,6 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
-
         # Pressing left will shrink the window’s width.
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
@@ -224,7 +215,38 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+##
+# move floating windows with keys
+bindsym $mod+Tab mode "move" focus floating
+mode "move" {
+    #bindsym $mod+Tab focus right
 
+    bindsym Left  move left
+    bindsym Down  move down
+    bindsym Up    move up
+    bindsym Right move right
+
+    bindsym h     move left
+    bindsym j     move down
+    bindsym k     move up
+    bindsym l     move right
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+
+
+
+# colors
+set $bg-color            #e5e9f0
+set $focused-bg-color 	 #b48ead
+set $inactive-bg-color   #eceff4
+set $text-color          #eceff4
+set $inactive-text-color #9da3b0
+set $urgent-bg-color     #bf616a
+set $indicator           #8fbcbb
 
 # window colors
 #                       border              background         text                 indicator
@@ -237,6 +259,7 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 # finds out, if available)
 bar {
         status_command i3blocks -c ~/.config/i3/i3blocks.conf
+	#status_command i3status
 	colors {
 		background $bg-color
 	    	separator #757575
@@ -254,7 +277,6 @@ bar {
 bindsym Control+Mod1+w exec firefox
 bindsym Control+Mod1+f exec thunar
 bindsym Control+Mod1+m exec xfce4-taskmanager
-bindsym Control+Mod1+s exec xfce4-terminal -x sh -c "speedtest; bash"
 
 # Screenshots
 bindsym Print exec --no-startup-id xfce4-screenshooter -f 
@@ -262,15 +284,16 @@ bindsym $mod+Print exec --no-startup-id xfce4-screenshooter -w
 bindsym Shift+Print exec --no-startup-id xfce4-screenshooter -r 
 
 # wallpaper
-exec_always feh --bg-scale /home/xuantung/.local/share/background/nord/Murky\ peaks.jpg
+exec_always feh --bg-scale /home/xuantung/.local/share/backgrounds/nord/Murky\ peaks.jpg
 
 # startup
-exec --no-startup-id ibus-daemon #input methods
-exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent # for redshift to run
+exec_always --no-startup-id ibus-daemon #input methods
+exec_always --no-startup-id /usr/lib/geoclue-2.0/demos/agent # for redshift to run
 exec --no-startup-id redshift-gtk  #limit bluelight, prevent eyestrain
 exec --no-startup-id xfce4-power-manager # energy consumption
-exec blueman-applet #bluetooth
-exec thunderbird #mail client
-exec picom #compositor
-exec xfce4-clipman #clipboard
+exec --no-startup-id blueman-applet #bluetooth
+exec --no-startup-id thunderbird #mail client
+exec --no-startup-id picom #compositor
+exec --no-startup-id xfce4-clipman #clipboard
+exec --no-startup-id goldendict #dictionary
 
