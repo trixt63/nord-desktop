@@ -169,10 +169,10 @@ assign [class="Thunar"] $ws3
 assign [class="Baobab"] $ws3
 assign [class="Microsoft Teams - Preview"] $ws4
 assign [class="telegram-desktop"] $ws4
+assign [class="TeamViewer"] $ws4
+assign [class="thunderbird"] $ws4
 assign [class="libreoffice"] $ws5
 assign [class="calibre"] $ws5
-assign [class="TeamViewer"] $ws5
-assign [class="thunderbird"] $ws5
 assign [class="Quodlibet"] $ws8
 assign [class="Gnome-pomodoro"] $ws8
 assign [class="Xfce4-power-manager-settings"] $ws9
@@ -259,7 +259,7 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 # finds out, if available)
 bar {
         status_command i3blocks -c ~/.config/i3/i3blocks.conf
-	#status_command i3status
+	#status_command i3status -c ~/.config/i3/i3status.conf
 	colors {
 		background $bg-color
 	    	separator #757575
@@ -285,6 +285,7 @@ bindsym Shift+Print exec --no-startup-id xfce4-screenshooter -r
 
 # wallpaper
 exec_always feh --bg-scale /home/xuantung/.local/share/backgrounds/nord/Murky\ peaks.jpg
+#exec_always feh --bg-scale /home/xuantung/Pictures/walls/sea-tower.jpg 
 
 # startup
 exec_always --no-startup-id ibus-daemon #input methods
